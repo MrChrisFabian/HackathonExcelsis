@@ -1,10 +1,13 @@
-const express = require('express')
-require('dotenv').config()
-const app = express()
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
+const app = express();
 
-const PORT = process.env.PORT
+app.use(cors());
 
-const ROUTES = require('../server/routes/weather.routes')
-app.use('/weather', ROUTES)
+const PORT = process.env.PORT;
+
+const ROUTES = require("../server/routes/weather.routes");
+app.use("/weather", ROUTES);
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

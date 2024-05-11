@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const CitiesData = [
   {
@@ -17,24 +23,29 @@ const CitiesData = [
   },
 ];
 
-const CitySelect = () => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Select a City</CardTitle>
-    </CardHeader>
-    <CardContent className="grid gap-4">
-      {CitiesData.map((city, index) => (
-        <div className="grid gap-2" key={index}>
-          <div className="grid gap-0.5">
-            <div className="font-medium">{city.name}</div>
-            <div className="text-gray-500 dark:text-gray-400 text-sm">
-              {city.country}
-            </div>
-          </div>
-        </div>
-      ))}
-    </CardContent>
-  </Card>
-);
+const CitySelect = () => {
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const handleCityChange = (event) => {
+    setSelectedCity(event.target.value);
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Select a City</CardTitle>
+      </CardHeader>
+      <CardContent className="grid gap-4">
+        <select value={selectedCity} onChange={handleCityChange}>
+          {CitiesData.map((city, index) => (
+            <option key={index} value={city.name}>
+              {city.name} ({city.country})
+            </option>
+          ))}
+        </select>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default CitySelect;
