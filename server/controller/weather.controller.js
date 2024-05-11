@@ -1,10 +1,14 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 let data;
 
-fetch('https://excelsisdev.github.io/desafiocode/db.json')
-    .then(response => response.json())
-    .then(json => data = json);
+axios.get('https://excelsisdev.github.io/desafiocode/db.json')
+    .then(response => {
+        data = response.data;
+    })
+    .catch(error => {
+        console.error('Error fetching data: ', error);
+    });
 
 const cityIndexMap = {
     'central': 0,
