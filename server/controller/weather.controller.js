@@ -1,4 +1,10 @@
-const data = require('../data/db.json');
+const fetch = require('node-fetch');
+
+let data;
+
+fetch('https://excelsisdev.github.io/desafiocode/db.json')
+    .then(response => response.json())
+    .then(json => data = json);
 
 const cityIndexMap = {
     'central': 0,
@@ -25,7 +31,6 @@ const getCityData = (city) => {
 
 }
 
-
 const conditionTemp = (day) => {
     return (day.main.temp >= 10 && day.main.temp <= 25)
 }
@@ -51,7 +56,10 @@ const getAlertType = (day) => {
     if (!conditionWeather(day) && !conditionTemp(day) && !conditionWind(day)) {
         return "peligroso"
     }
+}
 
+const celsiusToFarenheit = (cel) => {
+    return far(cel * 9 / 5) + 32
 }
 
 module.exports = {
